@@ -1,0 +1,11 @@
+$id: https://godaddy.com/schemas/commerce/orders/event-headers.v1
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Order Event Headers
+type: object
+description: Headers for Order events sent over the Commerce Tube
+required: ["content-type"]
+properties:
+  content-type:
+    type: string
+    description: Content type for the event
+    enum: ["application/cloudevents+json; charset=UTF-8"]

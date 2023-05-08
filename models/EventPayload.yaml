@@ -1,0 +1,59 @@
+$id: https://godaddy.com/schemas/commerce/orders/event-payload.v1
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Order Event Payload
+type: object
+description: "Payload for Order events sent over the Commerce Tube"
+required:
+  - type
+  - specversion
+  - source
+  - id
+  - time
+  - dataschema
+  - datacontenttype
+  - data
+properties:
+  type:
+    type: string
+    description: Current event types supported by the Order Service
+    enum: [
+      "commerce.order.created",
+      "commerce.order.updated",
+      "commerce.order.completed",
+      "commerce.order.canceled",
+      "commerce.order.ready-for-pickup",
+      "commerce.order.fulfilled",
+      "commerce.order.archived",
+      "commerce.order.resend-email-confirmation",
+    ]
+  specversion:
+    type: string
+    description: Version of the order schema
+    default: "1.6.0"
+  source:
+    type: string
+    description: Event producer URI
+    format: uri
+    default: "urn:com.godaddy:commerce.order"
+  id:
+    type: string
+    format: uuid
+    description: "Unique message/event identifier. It can be used for de-duplication and idempotency"
+    example: 126068b5-914d-4aca-9480-f7e172473ff6
+  time:
+    type: string
+    description: Timestamp for event occurence, in RFC 3339 format
+    example: "2022-07-21T17:32:28Z"
+  dataschema:
+    type: string
+    description: Schema URL for the content of `data` element in the event
+    enum: ["https://godaddy.com/schemas/commerce/orders/order.v1"]
+  datacontenttype:
+    type: string
+    description: Content type for the value of `data` element in the event, as in RFC 2425
+    enum: ["application/json"]
+  correlationid:
+    type: string
+    description: "Correlation ID from event or request origin"
+  data:
+    $ref: "./Order.yaml"

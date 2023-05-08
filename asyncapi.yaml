@@ -1,0 +1,32 @@
+asyncapi: 2.6.0
+info:
+  title: Order Service Async API
+  version: 1.6.0
+  description: Sends events when orders are created or updated
+  contact:
+    name: "The Orders & Fulfillments Team"
+    email: "mcc-dev@godaddy.com"
+    x-slack-channel: "#commerce-order-api"
+    url: "https://github.com/gdcorp-commerce/order-api"
+tags:
+  - name: Orders
+
+channels:
+  commerce.order:
+    subscribe:
+      description: Subscribe to all order events across all stores
+      operationId: "commerce.order.subscribe"
+      message:
+        $ref: "#/components/messages/orderEvent"
+
+components:
+  messages:
+    orderEvent:
+      name: orderEvent
+      title: Order Event
+      summary: Inform about an order
+      contentType: application/json
+      headers:
+        $ref: "./models/EventHeaders.yaml"
+      payload:
+        $ref: "./models/EventPayload.yaml"
